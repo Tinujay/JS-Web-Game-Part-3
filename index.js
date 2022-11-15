@@ -1,19 +1,35 @@
-function newImage(url, left, bottom){
+function newImage(url){
     let image = document.createElement('img')
     image.src = url
-    image.style.position = 'fixed'
-    image.style.left = left + 'px'
-    image.style.bottom = bottom + 'px'
     document.body.append(image)
     return image
 }
 
-newImage('assets/green-character.gif', 100, 250)
-newImage('assets/tree.png', 200, 450)
-newImage('assets/pillar.png', 350, 250)
-newImage('assets/pine-tree.png', 450, 350)
-newImage('assets/crate.png', 150, 350)
-newImage('assets/well.png', 500, 575)
+
+function move (image){
+    image.style.position = 'fixed'
+    
+    function moveToCoordinates(left, bottom) {    //defines a function in move
+        image.style.left = left + 'px'
+        image.style.bottom = bottom +'px'      
+    }
+    return {                              //because of return, you can access this outside of move function , you are returning an object ,                                                                                      //object to: has a value of a function   
+        to: moveToCoordinates                //gives the object a to property, defines an object in move
+    }
+}
+
+
+
+// move (greenCharacter, 100, 250)  //2nd function - we can see that left and bottom should be parameters of another function, rather than move.
+
+move(newImage('assets/green-character.gif')).to(100, 250)
+move(newImage('assets/tree.png')).to(200, 450)
+move(newImage('assets/green-character.gif')).to(100, 250)
+move(newImage('assets/pillar.png')).to(350, 250)
+move(newImage('assets/pine-tree.png')).to(450, 350)
+move(newImage('assets/crate.png')).to(150, 350)
+move(newImage('assets/well.png')).to(500, 575)
+
 
 
 function newItem(url, left, bottom){
@@ -49,3 +65,4 @@ function newInventory(){
 }
 
 const inventory = newInventory()
+move(inventory).to(0,0)
